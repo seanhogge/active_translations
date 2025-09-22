@@ -34,7 +34,7 @@ module ActiveTranslations
         Array(manual).each do |attr|
           define_method("#{attr}") do |locale: nil|
             if locale && translation = translations.find_by(locale: locale.to_s)
-              JSON.parse(translation.translated_attributes)[attr.to_s]
+              JSON.parse(translation.translated_attributes)[attr.to_s].presence || read_attribute(attr)
             else
               read_attribute(attr)
             end
@@ -52,9 +52,9 @@ module ActiveTranslations
 
             define_method("#{attr}_#{locale}") do
               translation = translations.find_by(locale: locale.to_s)
-              return send(attr) unless translation
+              return read_attribute(attr) unless translation
 
-              JSON.parse(translation.translated_attributes)[attr.to_s].presence || send(attr)
+              JSON.parse(translation.translated_attributes)[attr.to_s].presence || read_attribute(attr)
             end
           end
         end

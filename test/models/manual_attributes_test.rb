@@ -61,4 +61,28 @@ class ManualAttributesTest < ActiveSupport::TestCase
 
     assert_equal "[fr] Hilton", employer.name_fr, "Updating an auto-translated attribute should not remove manually translated attributes".black.on_red
   end
+
+  test "manually translated attributes fall back whether using the method with locale arg or method without args" do
+    employer = employers(:hilton)
+
+    perform_enqueued_jobs do
+      employer.name_fr = "[fr] Hilton"
+    end
+
+    assert_equal "[fr] Hilton", employer.name_fr, "Calling name_fr should return the fr_translation version of the name".black.on_red
+    assert_equal "[fr] Hilton", employer.name(locale: :fr), "Calling name(locale: :fr) should return the fr_translation version of the name".black.on_red
+    assert_nil employer.es_translation
+    assert_equal employer.name, employer.name_es, "Calling name_es should return the employer name when no es_translation exists".black.on_red
+    assert_equal employer.name, employer.name(locale: :es), "Calling name(locale: :es) should return the employer name when no es_translation exists".black.on_red
+
+    perform_enqueued_jobs do
+      employer.update profile_html: "hello world"
+    end
+
+    employer.reload
+
+    assert_not_nil employer.es_translation
+    assert_equal employer.name, employer.name_es, "Calling name_es should return the employer name when an es_translation exists without the name attribute".black.on_red
+    assert_equal employer.name, employer.name(locale: :es), "Calling name(locale: :es) should return the employer name when an es_translation exists without the name attribute".black.on_red
+  end
 end
