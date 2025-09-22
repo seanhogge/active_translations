@@ -44,4 +44,20 @@ class ManualAttributesTest < ActiveSupport::TestCase
     assert_equal "[fr] Hilton", employer.name_fr, "The name_fr should be set to '[fr] Hilton'".black.on_red
     assert_equal employer.name, employer.name_es, "The name_es should be the same as the name when an es translation doesn't exist".black.on_red
   end
+
+  test "auto translation retains manually translated attributes" do
+    employer = employers(:hilton)
+
+    perform_enqueued_jobs do
+      employer.name_fr = "[fr] Hilton"
+    end
+
+    assert_not_empty employer.translations, "An employer should have translations after setting a manual attribute translation".black.on_red
+
+    perform_enqueued_jobs do
+      employer.update profile_html: "<h4>Hello World</h4>"
+    end
+
+    assert_equal "[fr] Hilton", employer.name_fr, "Updating an auto-translated attribute should not remove manually translated attributes".black.on_red
+  end
 end

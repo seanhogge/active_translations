@@ -12,16 +12,26 @@ module ActiveTranslations
         translated_data[attr.to_s] = translate_text(source_text, locale)
       end
 
-      model.translations
+      translation = model.translations
         .find_or_initialize_by(
           translatable_type: model_class,
           translatable_id: model.id,
           locale: locale,
         )
-        .update!(
-          translated_attributes: translated_data.to_json,
-          source_checksum: checksum
-        )
+
+      existing_data =
+        begin
+          translation.translated_attributes.present? ? JSON.parse(translation.translated_attributes) : {}
+        rescue JSON::ParserError
+          {}
+        end
+
+      merged_attributes = existing_data.merge(translated_data)
+
+      translation.update!(
+        translated_attributes: merged_attributes.to_json,
+        source_checksum: checksum
+      )
     end
 
     private
