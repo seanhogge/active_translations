@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+admin:
+  name: Administrative
+  short_name: Administrative
+  path: administrative
+
+housekeeping:
+  name: Housekeeping & Guest Service
+  short_name: Housekeeping
+  path: housekeeping
