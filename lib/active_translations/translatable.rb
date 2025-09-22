@@ -3,9 +3,10 @@ module ActiveTranslations
     extend ActiveSupport::Concern
 
     class_methods do
-      def translates(*attributes, into:, unless: nil, only: nil)
+      def translates(*attributes, manual: [], into:, unless: nil, only: nil)
         @translation_config ||= {}
         @translation_config[:attributes] = attributes
+        @translation_config[:manual_attributes] = Array(manual)
         @translation_config[:locales] = into
         @translation_config[:unless] = binding.local_variable_get(:unless)
         @translation_config[:only] = binding.local_variable_get(:only)
@@ -26,6 +27,32 @@ module ActiveTranslations
               JSON.parse(translation.translated_attributes)[attr.to_s]
             else
               super()
+            end
+          end
+        end
+
+        Array(manual).each do |attr|
+          define_method("#{attr}") do |locale: nil|
+            if locale && translation = translations.find_by(locale: locale.to_s)
+              JSON.parse(translation.translated_attributes)[attr.to_s]
+            else
+              read_attribute(attr)
+            end
+          end
+
+          into.each do |locale|
+            define_method("#{attr}_#{locale}=") do |value|
+              translation = translations.find_or_initialize_by(translatable_type: self.class.name, translatable_id: self.id, locale: locale.to_s)
+              attrs = translation.translated_attributes ? JSON.parse(translation.translated_attributes) : {}
+              attrs[attr.to_s] = value
+              translation.translated_attributes = attrs.to_json
+              translation.source_checksum ||= calculate_checksum(attributes)
+              translation.save!
+            end
+
+            define_method("#{attr}_#{locale}") do
+              translation = translations.find_by(locale: locale.to_s)
+              translation ? JSON.parse(translation.translated_attributes)[attr.to_s] : send(attr)
             end
           end
         end

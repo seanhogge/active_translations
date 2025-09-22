@@ -81,4 +81,20 @@ class MacroTest < ActiveSupport::TestCase
 
     assert_empty job.translations, "Toggling the unless constraint to true should destroy existing translations".black.on_red
   end
+
+  test "creating a new translatable record creates translations" do
+    employer = perform_enqueued_jobs do
+      Employer.create(name: "Hyatt", profile_html: "<p>A great hotel</p>")
+    end
+
+    assert_not_empty employer.translations, "Creating a new employer with profile_html should generate translations".black.on_red
+  end
+
+  test "creating a new translatable record with blank values does not trigger translation" do
+    employer = perform_enqueued_jobs do
+      Employer.create(name: "Hyatt", profile_html: nil)
+    end
+
+    assert_empty employer.translations, "Creating a new employer with no profile_html should not trigger translations".black.on_red
+  end
 end

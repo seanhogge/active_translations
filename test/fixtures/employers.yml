@@ -1,0 +1,35 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+hilton:
+  name: Hilton
+  profile_html: |-
+    <h4>Heading</h4>
+
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Nam eleifend eros convallis dolor sodales, vel semper nunc interdum.
+      Nam velit nibh, vehicula auctor orci ac, viverra vulputate tortor.
+      Fusce dignissim nunc eget tellus elementum tincidunt.
+      Cras rhoncus nunc sed felis rutrum, sit amet venenatis enim pharetra.
+      Donec turpis lorem, viverra non sem vel, bibendum varius risus.
+      Curabitur imperdiet sed sapien fermentum tempus.
+    </p>
+
+    <ul>
+      <li>Mauris tortor enim, cursus id elit eu, ultrices aliquet felis.</li>
+      <li>Etiam quam ex, imperdiet nec laoreet ornare, pellentesque sed turpis.</li>
+      <li>Integer a mauris eget ipsum euismod consequat consectetur non augue.</li>
+      <li>Suspendisse ac velit lorem.</li>
+      <li>Nam sagittis commodo ligula id blandit.</li>
+      <li>Vestibulum commodo nisl lacus.</li>
+    </ul>
+
+    <p>
+      Sed pretium, justo ac ullamcorper fringilla, augue elit fermentum nisl, vitae euismod ligula libero id libero.
+      Aenean turpis libero, auctor eget mauris id, posuere interdum eros.
+    </p>
+
+    <p>
+      In lacus ante, ullamcorper non risus a, laoreet ultricies mauris.
+      Sed quis ullamcorper nibh.
+    </p>
