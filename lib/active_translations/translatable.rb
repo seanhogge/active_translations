@@ -52,7 +52,9 @@ module ActiveTranslations
 
             define_method("#{attr}_#{locale}") do
               translation = translations.find_by(locale: locale.to_s)
-              translation ? JSON.parse(translation.translated_attributes)[attr.to_s] : send(attr)
+              return send(attr) unless translation
+
+              JSON.parse(translation.translated_attributes)[attr.to_s].presence || send(attr)
             end
           end
         end

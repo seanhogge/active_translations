@@ -38,6 +38,7 @@ class ManualAttributesTest < ActiveSupport::TestCase
 
     perform_enqueued_jobs do
       employer.name_fr = "[fr] Hilton"
+      employer.update profile_html: "new profile html"
     end
 
     assert_not_empty employer.translations, "An employer should have translations after setting a manual attribute translation".black.on_red
