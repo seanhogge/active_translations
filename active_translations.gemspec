@@ -23,8 +23,4 @@ Gem::Specification.new do |spec|
   end
 
   spec.add_dependency "rails", ">= 7"
-  # spec.add_dependency "faraday"
-  # spec.add_dependency "googleauth"
-  # spec.add_dependency "google-api-client"
-  # spec.add_dependency "google-apis-core"
 end

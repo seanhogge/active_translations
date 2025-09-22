@@ -4,10 +4,8 @@ source "https://rubygems.org"
 gemspec
 
 gem "puma"
-
-gem "sqlite3"
-
 gem "propshaft"
+gem "sqlite3"
 
 # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
 gem "rubocop-rails-omakase", require: false
@@ -19,6 +17,3 @@ gem "pry"
 gem "colorize"
 gem "dotenv-rails", groups: [ :development, :test ]
 gem "faraday"
-gem "googleauth"
-gem "google-api-client"
-gem "google-apis-core"
