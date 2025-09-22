@@ -27,10 +27,9 @@ module ActiveTranslations
     private
 
     def translate_text(text, target_locale)
-      if Rails.env.test?
-        "[#{target_locale}] #{text}"
-      end
-      # Google Cloud Translation API call
+      return "[#{target_locale}] #{text}" if Rails.env.test?
+
+      GoogleTranslate.translate(target_language_code: target_locale, text: text)
     end
   end
 end

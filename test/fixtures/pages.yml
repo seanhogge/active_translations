@@ -1,0 +1,45 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+home_page:
+  title: Home Page
+  heading:
+  subhead: MyString
+  content: |-
+    <h4>Heading</h4>
+
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Nam eleifend eros convallis dolor sodales, vel semper nunc interdum.
+      Nam velit nibh, vehicula auctor orci ac, viverra vulputate tortor.
+      Fusce dignissim nunc eget tellus elementum tincidunt.
+      Cras rhoncus nunc sed felis rutrum, sit amet venenatis enim pharetra.
+      Donec turpis lorem, viverra non sem vel, bibendum varius risus.
+      Curabitur imperdiet sed sapien fermentum tempus.
+    </p>
+
+    <ul>
+      <li>Mauris tortor enim, cursus id elit eu, ultrices aliquet felis.</li>
+      <li>Etiam quam ex, imperdiet nec laoreet ornare, pellentesque sed turpis.</li>
+      <li>Integer a mauris eget ipsum euismod consequat consectetur non augue.</li>
+      <li>Suspendisse ac velit lorem.</li>
+      <li>Nam sagittis commodo ligula id blandit.</li>
+      <li>Vestibulum commodo nisl lacus.</li>
+    </ul>
+
+    <p>
+      Sed pretium, justo ac ullamcorper fringilla, augue elit fermentum nisl, vitae euismod ligula libero id libero.
+      Aenean turpis libero, auctor eget mauris id, posuere interdum eros.
+    </p>
+
+    <p>
+      In lacus ante, ullamcorper non risus a, laoreet ultricies mauris.
+      Sed quis ullamcorper nibh.
+    </p>
+  published: false
+
+about_page:
+  title: About Page
+  heading: Who We Are
+  subhead: Mission, Vision, Values
+  content: Vestibulum et velit iaculis, lobortis eros at, ultricies nisi. Ut maximus commodo metus, vel gravida massa scelerisque vel. Praesent at auctor diam. In efficitur efficitur neque. Sed augue elit, vehicula et lorem vitae, sagittis malesuada lectus. Mauris in tempor massa. Duis hendrerit feugiat dictum. Suspendisse sit amet lorem magna. Aenean sollicitudin neque ut ex vehicula, vel condimentum tortor facilisis. Curabitur neque leo, suscipit sit amet tincidunt a, vestibulum et sapien. Sed pretium lectus id tincidunt gravida. Etiam tempus risus ac facilisis laoreet. Fusce consequat felis vitae imperdiet faucibus. Sed bibendum volutpat malesuada. Vestibulum consequat ex in mi consequat laoreet. Nunc pellentesque nisl quis justo mollis, eget aliquam felis venenatis.
+  published: false

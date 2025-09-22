@@ -10,11 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_22_161056) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_22_181350) do
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.string "short_name"
     t.string "path"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "jobs", force: :cascade do |t|
+    t.string "title"
+    t.string "headline"
+    t.text "ad_html"
+    t.string "posted_status", default: "draft"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pages", force: :cascade do |t|
+    t.string "title"
+    t.string "heading"
+    t.string "subhead"
+    t.text "content"
+    t.boolean "published", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

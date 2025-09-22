@@ -1,6 +1,10 @@
-class Translation < ApplicationRecord
-  belongs_to :translatable, polymorphic: true
+module ActiveTranslations
+  class Translation < ApplicationRecord
+    self.table_name = :translations
 
-  validates :locale, presence: true, uniqueness: { scope: [ :translatable_type, :translatable_id ] }
-  validates :source_checksum, presence: true
+    belongs_to :translatable, polymorphic: true
+
+    validates :locale, presence: true, uniqueness: { scope: [ :translatable_type, :translatable_id ] }
+    validates :source_checksum, presence: true
+  end
 end

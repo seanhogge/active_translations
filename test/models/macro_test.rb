@@ -8,6 +8,7 @@ class MacroTest < ActiveSupport::TestCase
     category = categories(:admin)
 
     assert_empty category.translations, "SETUP: the category record should start with no translations".black.on_yellow
+
     perform_enqueued_jobs do
       category.update name: "administrative"
     end
@@ -31,5 +32,53 @@ class MacroTest < ActiveSupport::TestCase
     assert_empty category.translations, "The category record should not have translations after updating the path".black.on_red
     assert_nil category.fr_translation, "The category should have an fr_translation after updating the name".black.on_red
     assert_nil category.es_translation, "The category should have an es_translation after updating the name".black.on_red
+  end
+
+  test "a model with an only constraint is translated when it's toggled to true, and untranslated when toggled to false" do
+    page = pages(:home_page)
+
+    perform_enqueued_jobs do
+      page.update title: "new title"
+    end
+
+    assert_empty page.translations, "A page that isn't published shouldn't be translated".black.on_red
+
+    perform_enqueued_jobs do
+      page.update published: true
+    end
+
+    assert_not_empty page.translations, "A page should be translated if the only constraint changes to true".black.on_red
+
+    page.reload
+
+    perform_enqueued_jobs do
+      page.update published: false
+    end
+
+    assert_empty page.translations, "Toggling the only constraint to false should destroy existing translations".black.on_red
+  end
+
+  test "a model with an unless constraint is translated when it's toggled to false, and untranslated when toggled to true" do
+    job = jobs(:chef)
+
+    perform_enqueued_jobs do
+      job.update title: "new title"
+    end
+
+    assert_empty job.translations, "A job that isn't posted shouldn't be translated".black.on_red
+
+    perform_enqueued_jobs do
+      job.update posted_status: "posted"
+    end
+
+    assert_not_empty job.translations, "A job should be translated if the unless constraint changes to false".black.on_red
+
+    job.reload
+
+    perform_enqueued_jobs do
+      job.update posted_status: "expired"
+    end
+
+    assert_empty job.translations, "Toggling the unless constraint to true should destroy existing translations".black.on_red
   end
 end

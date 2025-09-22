@@ -22,5 +22,9 @@ Gem::Specification.new do |spec|
     Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   end
 
-  spec.add_dependency "rails", ">= 8.0.2.1"
+  spec.add_dependency "rails", ">= 7"
+  # spec.add_dependency "faraday"
+  # spec.add_dependency "googleauth"
+  # spec.add_dependency "google-api-client"
+  # spec.add_dependency "google-apis-core"
 end

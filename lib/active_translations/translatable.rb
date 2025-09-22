@@ -10,7 +10,7 @@ module ActiveTranslations
         @translation_config[:unless] = binding.local_variable_get(:unless)
         @translation_config[:only] = binding.local_variable_get(:only)
 
-        has_many :translations, as: :translatable, dependent: :destroy
+        has_many :translations, class_name: "ActiveTranslations::Translation", as: :translatable, dependent: :destroy
 
         # Generate locale-specific methods
         into.each do |locale|
@@ -40,9 +40,21 @@ module ActiveTranslations
 
     def queue_translations
       config = self.class.translation_config
-      return if config[:unless] && send(config[:unless])
-      return if config[:only] && !send(config[:only])
-      return unless saved_changes.keys.intersect? config[:attributes].map(&:to_s)
+
+      if config[:unless] && evaluate_condition(config[:unless])
+        self.translations.destroy_all
+        return
+      end
+
+      if config[:only] && !evaluate_condition(config[:only])
+        self.translations.destroy_all
+        return
+      end
+
+      # if just the only/unless constraint has changed
+      if !saved_changes.keys.intersect?(config[:attributes].map(&:to_s))
+        return unless (config[:unless] && !evaluate_condition(config[:unless])) || (config[:only] && evaluate_condition(config[:only]))
+      end
 
       current_checksum = calculate_checksum(config[:attributes])
 
@@ -58,6 +70,19 @@ module ActiveTranslations
     def calculate_checksum(attributes)
       values = attributes.map { |attr| read_attribute(attr).to_s }
       Digest::MD5.hexdigest(values.join)
+    end
+
+    private
+
+    def evaluate_condition(condition)
+      case condition
+      when Symbol
+        send(condition)
+      when Proc
+        instance_exec(&condition)
+      else
+        false
+      end
     end
   end
 end

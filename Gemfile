@@ -17,3 +17,8 @@ gem "rubocop-rails-omakase", require: false
 
 gem "pry"
 gem "colorize"
+gem "dotenv-rails", groups: [ :development, :test ]
+gem "faraday"
+gem "googleauth"
+gem "google-api-client"
+gem "google-apis-core"
