@@ -97,4 +97,25 @@ class MacroTest < ActiveSupport::TestCase
 
     assert_empty employer.translations, "Creating a new employer with no profile_html should not trigger translations".black.on_red
   end
+
+  test "changing auto translation attributes works as expected" do
+    employer = employers(:hilton)
+
+    perform_enqueued_jobs do
+      employer.update profile_html: "first profile update"
+    end
+
+    assert_not_empty employer.translations, "An employer should have translations after updating the profile_html".black.on_red
+    assert_equal "[fr] first profile update", employer.profile_html(locale: :fr)
+    assert_equal "[es] first profile update", employer.profile_html(locale: :es)
+
+    employer.reload
+
+    perform_enqueued_jobs do
+      employer.update profile_html: "second profile update"
+    end
+
+    assert_equal "[fr] second profile update", employer.profile_html(locale: :fr), "A second update to an auto translated attribute should be correctly saved".black.on_red
+    assert_equal "[es] second profile update", employer.profile_html(locale: :es), "A second update to an auto translated attribute should be correctly saved".black.on_red
+  end
 end
