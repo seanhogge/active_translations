@@ -1,4 +1,4 @@
-module ActiveTranslations
+module ActiveTranslation
   module Translatable
     extend ActiveSupport::Concern
 
@@ -11,7 +11,7 @@ module ActiveTranslations
         @translation_config[:unless] = binding.local_variable_get(:unless)
         @translation_config[:only] = binding.local_variable_get(:only)
 
-        has_many :translations, class_name: "ActiveTranslations::Translation", as: :translatable, dependent: :destroy
+        has_many :translations, class_name: "ActiveTranslation::Translation", as: :translatable, dependent: :destroy
 
         # Generate locale-specific methods
         into.each do |locale|

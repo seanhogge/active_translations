@@ -1,4 +1,4 @@
-module ActiveTranslations
+module ActiveTranslation
   class ApplicationRecord < ActiveRecord::Base
     self.abstract_class = true
   end

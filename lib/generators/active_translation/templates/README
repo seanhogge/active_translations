@@ -8,8 +8,8 @@ Next steps:
    rails db:migrate
 
 2. Configure your Google Translation API key:
-   # config/initializers/active_translations.rb
-   ActiveTranslations.configure do |config|
+   # config/initializers/active_translation.rb
+   ActiveTranslation.configure do |config|
      config.google_api_key = ENV['GOOGLE_TRANSLATION_API_KEY']
    end
 

@@ -1,4 +1,4 @@
 # desc "Explaining what the task does"
-# task :active_translations do
+# task :active_translation do
 #   # Task goes here
 # end

@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount ActiveTranslations::Engine => "/active_translations"
+  mount ActiveTranslation::Engine => "/active_translation"
 end

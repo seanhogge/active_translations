@@ -1,4 +1,4 @@
-module ActiveTranslations
+module ActiveTranslation
   module ApplicationHelper
   end
 end

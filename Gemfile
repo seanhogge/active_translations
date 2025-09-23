@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in active_translations.gemspec.
+# Specify your gem's dependencies in active_translation.gemspec.
 gemspec
 
 gem "puma"
@@ -17,3 +17,6 @@ gem "pry"
 gem "colorize"
 gem "dotenv-rails", groups: [ :development, :test ]
 gem "faraday"
+gem "googleauth"
+# gem "google-api-client"
+# gem "google-apis-core"

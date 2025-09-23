@@ -1,4 +1,4 @@
-module ActiveTranslations
+module ActiveTranslation
   class TranslationJob < ActiveJob::Base
     queue_as :default
 

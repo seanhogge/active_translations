@@ -1,13 +1,13 @@
-require_relative "lib/active_translations/version"
+require_relative "lib/active_translation/version"
 
 Gem::Specification.new do |spec|
-  spec.name        = "active_translations"
-  spec.version     = ActiveTranslations::VERSION
+  spec.name        = "active_translation"
+  spec.version     = ActiveTranslation::VERSION
   spec.authors     = [ "Sean Hogge" ]
   spec.email       = [ "sean@seanhogge.com" ]
   spec.homepage    = "TODO"
-  spec.summary     = "TODO: Summary of ActiveTranslations."
-  spec.description = "TODO: Description of ActiveTranslations."
+  spec.summary     = "TODO: Summary of ActiveTranslation."
+  spec.description = "TODO: Description of ActiveTranslation."
   spec.license     = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the "allowed_push_host"
@@ -22,5 +22,6 @@ Gem::Specification.new do |spec|
     Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   end
 
-  spec.add_dependency "rails", ">= 7"
+  spec.add_dependency "rails", ">= 7.2.2"
+  spec.add_dependency "activerecord", ">= 7.2.2"
 end

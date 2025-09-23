@@ -1,7 +1,7 @@
 require "test_helper"
 
-class ActiveTranslationsTest < ActiveSupport::TestCase
+class ActiveTranslationTest < ActiveSupport::TestCase
   test "it has a version number" do
-    assert ActiveTranslations::VERSION
+    assert ActiveTranslation::VERSION
   end
 end

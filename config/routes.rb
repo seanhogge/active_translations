@@ -1,2 +1,2 @@
-ActiveTranslations::Engine.routes.draw do
+ActiveTranslation::Engine.routes.draw do
 end

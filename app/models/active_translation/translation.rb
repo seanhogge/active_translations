@@ -1,4 +1,4 @@
-module ActiveTranslations
+module ActiveTranslation
   class Translation < ApplicationRecord
     self.table_name = :translations
 

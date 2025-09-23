@@ -1,4 +1,4 @@
-module ActiveTranslations
+module ActiveTranslation
   module Generators
     class InstallGenerator < Rails::Generators::Base
       include Rails::Generators::Migration
@@ -15,7 +15,7 @@ module ActiveTranslations
       end
 
       def copy_initializer
-        template "active_translations.rb", "config/initializers/active_translations.rb"
+        template "active_translation.rb", "config/initializers/active_translation.rb"
       end
 
       def show_readme

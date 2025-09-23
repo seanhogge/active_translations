@@ -1,4 +1,4 @@
-module ActiveTranslations
+module ActiveTranslation
   class Configuration
     attr_accessor :type,
       :project_id,
