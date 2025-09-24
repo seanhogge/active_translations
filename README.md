@@ -34,11 +34,11 @@ You will need to restart your rails server and your ActiveJob adapter process (i
 
 ## Configuration
 
-The first step is to configure your Google credentials. ActiveTranslation uses the Google Translate API in the background for translation. This is a bit more than just an API key.
+The first step after installation is to configure your Google credentials. ActiveTranslation uses the Google Translate API in the background for translation. This is a bit more than just an API key.
 
 The general idea is:
 
-1. Create a project at console.cloud.google.com
+1. Create a project at https://console.cloud.google.com
 1. In “APIs & Services” > “Library” look for “Cloud Translation API”
 1. Create a Service Account and download the JSON key file
 1. Ensure billing is enabled, and all the other prerequisites that Google requires
