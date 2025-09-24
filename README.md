@@ -127,7 +127,7 @@ on a model like `Post`, then you can do this with an instance of `Post` assigned
 @post.content(locale: :fr)
 ```
 
-If the post has an `fr_translation`, then that will be shown. If not, it will show the post's untranslated `content`.
+If the post has an `fr_translation`, then that will be shown. If no `fr_translation` exists, it will show the post's untranslated `content`.
 
 In this way, you'll never have missing values, but you will have the default language version instead of the translated version.
 
@@ -137,7 +137,7 @@ The same goes for manual translations:
 @post.name(locale: :es)
 ```
 
-If the `es_translation` association exists, it will use the value for the `name` attribute, or the untranslated `name`.
+If the `es_translation` association exists, it will use the value for the `name` attribute, or the untranslated `name` if the `es_translation` doesn't exist.
 
 Obviously, you would probably pass the locale as `I18n.locale` in a real situation, or whatever variable or method that returns the relevant locale.
 
