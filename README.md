@@ -29,11 +29,12 @@ Migrate your primary database:
 rails db:migrate
 ```
 
+You will need to restart your rails server and your ActiveJob adapter process (if separate) if it was running when you installed and migrated.
 
-## Usage
+
+## Configuration
 
 The first step is to configure your Google credentials. ActiveTranslation uses the Google Translate API in the background for translation. This is a bit more than just an API key.
-
 
 The general idea is:
 
@@ -46,6 +47,9 @@ The general idea is:
 Feel free to change the names of the environment variables, or to alter that initializer to assign those keys however you like. At Talentronic, we have an `APIConnection` model we use for stuff like that so we grab the credentials from there and assign them.
 
 That's the hard part!
+
+
+## Usage
 
 To any ActiveRecord model, add `translates` with a list of columns that should be translated, a list of locales and any constraints.
 
@@ -95,7 +99,7 @@ Likewise, if the constraint changes the other way, translations are removed sinc
 
 ### Manual Attributes
 
-Sometimes you want to translate an attribute, but it's not something Google Translate or an LLM can handle on their own. For instance, at Talentronic, we have names of businesses that operate in airports. These names have trademarked names that might look like common words, but aren't. These names also have the airport included which can confuse the LLM or API mixed in with the business name.
+Sometimes you want to translate an attribute, but it's not something Google Translate or an LLM can handle on their own. For instance, at Talentronic, we have names of businesses that operate in airports. These names have trademarked names that might look like common words, but aren't. These names also have the airport included which can confuse the LLM or API when it's mixed in with the business name.
 
 So we need manual translation attributes:
 
@@ -103,7 +107,7 @@ So we need manual translation attributes:
 translates :content, manual: :name, into: %i[es fr]
 ```
 
-Manual attributes have a special setter in the form of `#{attribute_name}_#{locale}`. So in this example, we get `name_fr=` and `name_es=`.
+Manual attributes have a special setter in the form of `#{attribute_name}_#{locale}=`. So in this example, we get `name_fr=` and `name_es=`.
 
 These attributes never trigger retranslation, and are never checked against the original text - it's entirely up to you to maintain them. However, it does get stored alongside all the other translations, keeping your database tidy and your translation code consistent.
 
