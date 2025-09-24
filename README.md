@@ -1,7 +1,6 @@
 # ActiveTranslation
 
-ActiveTranslation lets you easily translate ActiveRecord models. With a single line added to that model, you can declare
-which columns, which locales, and what constraints to allow or prevent translation.
+ActiveTranslation lets you easily translate ActiveRecord models. With a single line added to that model, you can declare which columns, which locales, and what constraints to allow or prevent translation.
 
 
 ## Installation
@@ -34,6 +33,7 @@ rails db:migrate
 ## Usage
 
 The first step is to configure your Google credentials. ActiveTranslation uses the Google Translate API in the background for translation. This is a bit more than just an API key.
+
 
 The general idea is:
 
@@ -93,12 +93,56 @@ So ActiveTranslation watches for the constraint to change so that when the `Post
 
 Likewise, if the constraint changes the other way, translations are removed since ActiveTranslation will no longer be keeping those translations up-to-date. Better to have no translation than a completely wrong one.
 
+### Manual Attributes
+
+Sometimes you want to translate an attribute, but it's not something Google Translate or an LLM can handle on their own. For instance, at Talentronic, we have names of businesses that operate in airports. These names have trademarked names that might look like common words, but aren't. These names also have the airport included which can confuse the LLM or API mixed in with the business name.
+
+So we need manual translation attributes:
+
+```ruby
+translates :content, manual: :name, into: %i[es fr]
+```
+
+Manual attributes have a special setter in the form of `#{attribute_name}_#{locale}`. So in this example, we get `name_fr=` and `name_es=`.
+
+These attributes never trigger retranslation, and are never checked against the original text - it's entirely up to you to maintain them. However, it does get stored alongside all the other translations, keeping your database tidy and your translation code consistent.
+
+### The Show
+
+Once you have added the `translates` directive with your columns, locales, and constraints and your models have been translated to at least one locale, it's time to actually use them.
+
+If you set:
+
+```ruby
+translates :content, manual: :name, into: %i[es fr]
+```
+
+on a model like `Post`, then you can do this with an instance of `Post` assigned to `@post`:
+
+```ruby
+@post.content(locale: :fr)
+```
+
+If the post has an `fr_translation`, then that will be shown. If not, it will show the post's untranslated `content`.
+
+In this way, you'll never have missing values, but you will have the default language version instead of the translated version.
+
+The same goes for manual translations:
+
+```ruby
+@post.name(locale: :es)
+```
+
+If the `es_translation` association exists, it will use the value for the `name` attribute, or the untranslated `name`.
+
+Obviously, you would probably pass the locale as `I18n.locale` in a real situation, or whatever variable or method that returns the relevant locale.
+
 
 ## Contributing
 
 Fork the repo, make your changes, make a pull request.
 
-                                                                                                              n
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
