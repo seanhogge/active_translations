@@ -1,4 +1,4 @@
-class MacroTest < ActiveSupport::TestCase
+class TranslatableTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
   setup do
