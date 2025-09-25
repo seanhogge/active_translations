@@ -46,6 +46,14 @@ The general idea is:
 
 Feel free to change the names of the environment variables, or to alter that initializer to assign those keys however you like. At Talentronic, we have an `APIConnection` model we use for stuff like that so we grab the credentials from there and assign them.
 
+You could also use something like `dotenv-rails` and create a `.env` file in your various environments.
+
+Or you could use the OS to define them, such as in an `/etc/environment` file.
+
+If you're using Kamal, you probably already have a way to manage secrets and add them to env variables - that works, too.
+
+Obvious reminder: whatever method you use, just make sure it's not committed to any repository, even once. If you do, make sure you get new credentials and expire/delete the credentials that got committed.
+
 That's the hard part!
 
 
