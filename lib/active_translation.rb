@@ -3,6 +3,9 @@ require "active_translation/engine"
 require "active_translation/configuration"
 require "active_translation/translatable"
 require "active_translation/translation_job"
+require "faraday"
+require "faraday_middleware"
+require "googleauth"
 
 module ActiveTranslation
   class << self
