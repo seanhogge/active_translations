@@ -39,7 +39,7 @@ module ActiveTranslation
     def translate_text(text, target_locale)
       return "[#{target_locale}] #{text}" if Rails.env.test?
 
-      GoogleTranslate.translate(target_language_code: target_locale, text: text)
+      ActiveTranslation::GoogleTranslate.translate(target_language_code: target_locale, text: text)
     end
   end
 end
